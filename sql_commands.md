@@ -63,3 +63,41 @@ SELECT * from <schema_name>.<table_name>;
 SELECT * from test.employee;
 ```
 
+## Truncate Table
+
+- Truncate clear out all data/rows maintaining structure of table.
+- We cannot ROLLBACK if we truncate table.
+
+```
+TRUNCATE <schema_name>.<table_name>
+```
+
+```
+TRUNCATE test.employee;
+```
+
+## Altering Column
+
+```
+ALTER table <schema_name>.<table_name>
+```
+
+```
+ALTER table test.employee
+ALTER column emp_name type varchar(100)
+```
+
+## Renaming Table Name
+
+```
+ALTER table <schema_name>.<table_name>
+```
+
+```
+ALTER table test.employee
+RENAME to emp
+```
+
+> Table's name "employee" will changed to "emp"
+
+
