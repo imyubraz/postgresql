@@ -154,9 +154,19 @@ In this query, the columns are defined as follows:
 INSERT INTO <schema_name>.<table_name> (column1, column2, column3) VALUES (value1, value2, value3)
 ```
 
+- One data Insertion
+
 ```
 INSERT INTO test.students(first_name, last_name, house_number, phone, email, grad_year)
 VALUES('Yubraj', 'Poudel', 22, 987654321, 'imyubraz@gmail.com', 2023)
+```
+
+- Multiple data Insertion
+
+```
+INSERT INTO test.students(first_name, last_name, house_number, phone, email, grad_year)
+VALUES ('Yubraj', 'Poudel', 22, 987654321, 'imyubraz@gmail.com', 2023),
+('Roshan', 'Neupane', 22, 987654321, 'imyubraz@gmail.com', 2023)
 ```
 
 ### UPDATE
@@ -184,4 +194,181 @@ WHERE condition...;
 ```
 DELETE FROM test.students where student_id=2;
 ```
+
+> If condition is not mentioned at the end, all data will be deleted.
+
+> We can ROLLBACK if we've used DELETE command but not in case of TRUNCATE command.
+
+
+### SELECT 
+
+- First Inserting in students table (in test schema)
+
+```
+INSERT INTO test.students(first_name, last_name, house_number, phone, email, grad_year)
+VALUES ('Yubraj', 'Poudel', 22, 988654321, 'iamyubraz@gmail.com', 2023),
+('Roshan', 'Neupane', 22, 98345698765, 'roshanneupane600@gmail.com', 2023),
+('Brajesh', 'Mandal', 23, 9812345671, 'brajesh@gmail.com', 2023),
+('Roshan', 'Neupane', 22, 9812874561, 'roshan@gmail.com', 2023),
+('Kisna', 'Basnet', 23, 9812345679, 'kisna@gmail.com', 2023)
+```
+
+- Fetch all columns using SELECT
+
+```
+SELECT * FROM test.students
+```
+
+- Fetch selective columns using SELECT
+
+```
+SELECT column_name_1, column_name_2 FROM test.students
+```
+```
+SELECT first_name last_name FROM test.students
+```
+
+- Fetch Distinct rows in column(s)
+
+```
+SELECT DISTINCT first_name, last_name FROM test.students
+```
+> It will show first_name & last_name once, if duplicate data exists
+
+```
+SELECT DISTINCT * FROM test.students
+```
+> It will show distint rows. May be some columns have duplicate data but it will be distinct as a entire row.
+
+- Conditional Fetching using WHERE clause
+
+	- Get all columns of row(s) as per condition mentioned in WHERE clause:
+
+	```
+	SELECT * FROM test.students WHERE student_id=10
+	```
+
+	```
+	SELECT * FROM test.students WHERE student_id IN (10,11,12)
+	```
+
+	- Get selective columns of row(s) as per condition mentioned in WHERE clause:
+
+	```
+	SELECT first_name, last_name FROM test.students WHERE student_id=10
+	```
+
+	```
+	SELECT first_name, last_name FROM test.students WHERE student_id IN (10,11,12)
+	```
+
+- Sorting while fetching using ORDER BY clause:
+
+> By default fetched rows/recordes are ordered in ascending manner by primary key.
+
+```
+SELECT * FROM test.students ORDER BY student_id DESC
+```
+> It will show all columns data sorted descending according student_id
+
+```
+SELECT * FROM test.students ORDER BY student_id ASC
+```
+> It will show all columns data sorted accending according student_id
+
+```
+SELECT first_name, last_name FROM test.students ORDER BY first_name ASC
+```
+> It will first_name & last_name columns data sorted descending according student_id
+
+- Limit no. of rows in output using LIMIT keyword
+
+```
+SELECT * FROM test.students LIMIT 3
+```
+> It will give 3 rows, all columns in output
+
+```
+SELECT first_name, phone FROM test.students LIMIT 5
+```
+> It will give 5 rows, first_name & phone columns in output
+
+```
+SELECT first_name, phone FROM test.students ORDER BY first_name desc LIMIT 3
+```
+> It will give top 3 rows (with first_name & phone columns) when ordered in descending manner, or bottom 3 rows when ordered in ascending manner
+> Note: LIMIT keyword should used after ORDER BY clause when used together
+
+- Limiting no. of rows in output using FETCH
+
+```
+SELECT * FROM test.students
+FETCH FIRST 4 row only
+```
+> Give first 4 records
+
+```
+SELECT * FROM test.students
+ORDER BY first_name DESC
+FETCH FIRST 4 row only
+```
+> Give last 4 records (since ordered in descending manner)
+
+
+- Excluding first fetched row(s) using OFFSET keyword
+
+```
+SELECT * FROM test.students OFFSET 2
+```
+> Exclude first 2 rows (or start fetching from 3rd record) while fetching
+
+```
+SELECT first_name, phone FROM test.students ORDER BY first_name desc LIMIT 3 OFFSET 1
+```
+> Exclude first record (or start fetching from 2nd record) while fetching
+> Note: OFFSET keword should used after LIMIT keyword when used together
+
+- GROUP BY clause
+
+> primary_key must appear in the GROUP BY clause or GROUP BY clause must be used in an aggregate function
+
+```
+SELECT COUNT(*) FROM test.students
+GROUP BY grad_year
+```
+
+```
+SELECT COUNT(*), grad_year FROM test.students
+GROUP BY grad_year
+```
+> Its good to select column which is used to group by while fetching to ease understanding output. (eg: grad_year column here)
+
+```
+SELECT COUNT(*), grad_year FROM test.students
+GROUP BY grad_year
+ORDER BY grad_year ASC
+```
+> Using ORDER BY clause along GROUP BY
+
+- HAVING clause
+
+> HAVING clause is always used along with GROUP BY to give condition.
+
+```
+SELECT COUNT(*), grad_year FROM test.students
+GROUP BY grad_year
+HAVING grad_year > 2020
+```
+
+```
+SELECT COUNT(*), grad_year FROM test.students
+GROUP BY grad_year
+HAVING grad_year = 2024
+```
+
+
+
+
+
+
 
