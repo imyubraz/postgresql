@@ -616,10 +616,41 @@ FROM test.student AS s RIGHT JOIN test.teacher AS t
 ON s.course_id = t.course_id
 ```
 
+- Performing Full Join / Full Outer Join between two tables (student & teacher)
 
+```
+SELECT *
+FROM test.student AS s FULL JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
 
+```
+SELECT s.student_name, t.teacher_name
+FROM test.student AS s FULL JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
 
+- Performing Full Join / Full Outer Join between three tables (student, teacher & course)
 
+```
+SELECT *
+FROM
+test.student AS s 
+FULL JOIN test.teacher AS t
+ON s.course_id = t.course_id
+FULL JOIN test.course AS c
+ON s.course_id = c.course_id
+```
+
+```
+SELECT s.student_name, t.teacher_name, c.course_name
+FROM
+test.student AS s 
+FULL JOIN test.teacher AS t
+ON s.course_id = t.course_id
+FULL JOIN test.course AS c
+ON s.course_id = c.course_id
+```
 
 
 
