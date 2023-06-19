@@ -476,10 +476,98 @@ HAVING grad_year = 2024
 	- Self Join
 
 
-	
+#### Joins Example
+
+- Creating three tables : student, teacher & course 
+
+```
+CREATE TABLE test.student (
+    student_id SERIAL PRIMARY KEY,
+    student_name VARCHAR(100),
+    course_id INT,
+    enrollment_date DATE
+);
+```
+```
+CREATE TABLE test.teacher (
+    teacher_id SERIAL PRIMARY KEY,
+    teacher_name VARCHAR(100),
+    course_id INT,
+    hire_date DATE
+);
+```
+
+```
+CREATE TABLE test.course (
+    course_id SERIAL PRIMARY KEY,
+    course_name VARCHAR(100),
+    start_date DATE
+);
+```
+
+- Inserting Data in each table
 
 
+```
+INSERT INTO test.student (student_name, course_id, enrollment_date)
+VALUES
+    ('John Doe', 1, '2023-01-01'),
+    ('Jane Smith', 2, '2023-02-01'),
+    ('Mike Johnson', 1, '2023-01-15'),
+    ('Sarah Williams', 3, '2023-03-01');
+```
+> Data inserted in Student Table (test.student)
 
+```
+INSERT INTO teacher (teacher_name, course_id, hire_date)
+VALUES
+    ('Professor Anderson', 1, '2022-12-01'),
+    ('Professor Johnson', 2, '2023-01-01'),
+    ('Professor Thompson', 3, '2023-02-01');
+```
+> Data inserted in Teacher Table (test.teacher)
+
+```
+INSERT INTO test.course (course_name, start_date)
+VALUES
+    ('Mathematics', '2023-01-01'),
+    ('English', '2023-02-01'),
+    ('Physics', '2023-03-01');
+```
+> Data inserted in Teacher Table (test.course)
+
+- Performing Inner Join (student & course)
+
+```
+SELECT *
+FROM test.student INNER JOIN test.course
+ON test.student.course_id = test.course.course_id;
+```
+> Return all columns
+
+```
+SELECT *
+FROM test.student AS s INNER JOIN test.course as c
+ON s.course_id = c.course_id;
+```
+> Using aliasing (providing short name using AS keyword)
+> Return all columns
+
+```
+SELECT test.student.student_name, test.course.course_name, test.course.start_date
+FROM test.student INNER JOIN test.course
+ON test.student.course_id = test.course.course_id;
+```
+> Return selected columns
+
+```
+SELECT s.student_name, c.course_name, c.start_date
+FROM test.student AS s INNER JOIN test.course AS c
+ON s.course_id = c.course_id;
+```
+
+> Using aliasing (providing short name using AS keyword)
+> Return selected columns
 
 
 
