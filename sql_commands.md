@@ -199,6 +199,7 @@ DELETE FROM test.students where student_id=2;
 
 > We can ROLLBACK if we've used DELETE command but not in case of TRUNCATE command.
 
+## PostgreSQL DQL (Data Query Language)
 
 ### SELECT 
 
@@ -365,6 +366,123 @@ SELECT COUNT(*), grad_year FROM test.students
 GROUP BY grad_year
 HAVING grad_year = 2024
 ```
+
+### SQL JOINS
+
+- We use SQL joins to connect two or more tables in Relational Databases. 
+
+- Types of SQL joins : INNER JOIN, RIGHT OUTER JOIN, LEFT OUTER JOIN, FULL OUTER JOIN, CROSS JOIN, LEFT JOIN, RIGHT JOIN, Self join, FULL JOIN, FULL OUTER joins, RIGHT OUTER joins
+
+- First adding two new tables Students_A (students of class A) & Students_B (students of class B)
+
+	- create Students_A table
+
+	```
+	CREATE TABLE test.Students_A (
+		student_id SERIAL PRIMARY KEY,
+		first_name VARCHAR(30) NOT NULL,
+		last_name VARCHAR(30) NOT NULL,
+		age INTEGER,
+		phone VARCHAR(20) NOT NULL UNIQUE,
+		email VARCHAR(255) UNIQUE,
+		grad_year INTEGER
+	);
+	```
+
+	- Insert records in student_a/Student_A table
+	```
+	INSERT INTO test.students_a(first_name, last_name, age, phone, email, grad_year)
+	VALUES ('Yubraj', 'Poudel', 23, 9817132325, 'imyubraz@gmail.com', 2023),
+	('Roshan', 'Neupane', 22, 987654321, 'roshanneupane600@gmail.com', 2025)
+	```
+
+	- View all records in student_a/Student_A table
+	```
+	SELECT * FROM test.students_a
+	```
+
+	- create Students_B/students_b table (with same structure and data ad student_a table, basically copying entire table, can be used for backup purpose)
+
+	```
+	CREATE TABLE test.students_b
+	as
+	SELECT * FROM test.students_a
+	```
+	>  Note: column constraints will not be valid anymore
+
+
+	- or we can create Students_B/students_b table by following students_a table's structure only not copy entire data
+
+	```
+	CREATE TABLE test.students_b
+	as
+	SELECT * FROM test.students_a WHERE 1=2
+	```
+	> We can give any condition (falsy condition) in where clause which should result 0 no. of rows
+	>  Note: column constraints will not be valid anymore
+
+	- or Create table manually (recommended)
+	```
+	CREATE TABLE test.Students_B (
+		student_id SERIAL PRIMARY KEY,
+		first_name VARCHAR(30) NOT NULL,
+		last_name VARCHAR(30) NOT NULL,
+		age INTEGER,
+		phone VARCHAR(20) NOT NULL UNIQUE,
+		email VARCHAR(255) UNIQUE,
+		grad_year INTEGER
+	);
+	```
+
+	- Now Insert records in student_b/Student_B table as well
+
+	```
+	INSERT INTO test.students_b(first_name, last_name, age, phone, email, grad_year)
+	VALUES ('Sujan', 'Poudel', 23, 985612346, 'poudelsujan@gmail.com', 2024),
+	('Kisna', 'Basnet', 24, 987654321, 'kisnabasnet@gmail.com', 2024),
+	('Gobind', 'Joshi', 22, 980654321, 'gobindjoshi@gmail.com', 2024)
+	```
+
+	- Now Insert records in student_b/Student_B table as well
+
+	```
+	INSERT INTO test.students_b(first_name, last_name, age, phone, email, grad_year)
+	VALUES ('Sujan', 'Poudel', 23, 985612346, 'poudelsujan@gmail.com', 2024),
+	('Kisna', 'Basnet', 24, 987654321, 'kisnabasnet@gmail.com', 2024),
+	('Gobind', 'Joshi', 22, 980654321, 'gobindjoshi@gmail.com', 2024)
+	```
+
+	- Create registration table which holds student's registration data
+
+	```
+	CREATE TABLE IF NOT EXISTS test.registration (
+		student_id INTEGER NOT NULL,
+		first_name VARCHAR(30) NOT NULL,
+		last_name VARCHAR(30) NOT NULL,
+		age INTEGER,
+		status VARCHAR(20) NOT NULL,
+		start_date DATE
+	);
+	```
+
+
+
+- Joins in created tables
+	- Inner Join : id/data common in both Students_A & Students_B. (matching records only)
+	- Left Join : All left table records + matching records
+	- Right Join : All right table records + matching records
+	- Full join : All left table records + matching records + All right table records
+	- Cross Join : Cartesian product of records (left X right)
+	- Self Join
+
+
+	
+
+
+
+
+
+
 
 
 
