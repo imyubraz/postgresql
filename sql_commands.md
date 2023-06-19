@@ -538,6 +538,8 @@ VALUES
 
 - Performing Inner Join (student & course)
 
+>Inner Join: The inner join returns only the rows that have matching values in both tables. It selects the records where there is a match based on the specified join condition.
+
 ```
 SELECT *
 FROM test.student INNER JOIN test.course
@@ -569,6 +571,50 @@ ON s.course_id = c.course_id;
 > Using aliasing (providing short name using AS keyword)
 > Return selected columns
 
+- Performing Left Join / Left Outer Join (student & teacher)
+
+> Left Join : The left join returns all rows from the left table and the matching rows from the right table. If there are no matches, it fills the columns of the right table with NULL values.
+
+```
+SELECT *
+FROM test.student AS s LEFT JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
+
+```
+SELECT s.student_name, s.course_id, t.teacher_name
+FROM test.student AS s LEFT JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
+
+- Performing Right Join / Right Outer Join (student & teacher)
+
+> Right Join: The right join returns all rows from the right table and the matching rows from the left table. If there are no matches, it fills the columns of the left table with NULL values.
+
+	- More insertion done to view NULL values in output
+```
+INSERT INTO test.student (student_name, course_id, enrollment_date)
+VALUES ('Yubraj Poudel', 4, '2023-02-01')
+```
+
+```
+INSERT INTO test.teacher (teacher_name, course_id, hire_date)
+VALUES('Professor Yuvi', 5, '2022-12-01')
+```
+
+Right join examples
+
+```
+SELECT *
+FROM test.student AS s RIGHT JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
+
+```
+SELECT s.student_name, s.course_id, t.teacher_name
+FROM test.student AS s RIGHT JOIN test.teacher AS t
+ON s.course_id = t.course_id
+```
 
 
 
