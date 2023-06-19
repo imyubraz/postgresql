@@ -683,6 +683,29 @@ FROM test.student AS s
 CROSS JOIN test.teacher AS t
 CROSS JOIN test.course AS c
 ```
+- Performing Self join
+
+> Self Join : A self join is a regular join, but the table is joined with itself. Self join is performed between two instances (created using aliasing) of same table.
+
+
+```
+SELECT *
+FROM test.student AS s1
+INNER JOIN test.student AS s2
+ON s1.course_id = s2.course_id
+WHERE s1.student_id <> s2.student_id;
+```
+> <> => not equal to
+
+```
+SELECT s1.student_name, s2.student_name
+FROM test.student AS s1
+INNER JOIN test.student AS s2
+ON s1.course_id = s2.course_id
+WHERE s1.student_id <> s2.student_id;
+```
+
+> In this simplified self join example, we compare the rows within the same "student" table. We join the table with itself using the alias "s1" and "s2" to represent two different instances of the "student" table. The join condition s1.course_id = s2.course_id ensures that we only match students who are enrolled in the same course. The WHERE clause s1.student_id <> s2.student_id ensures that we exclude self-matches, so we only get pairs of different students.
 
 
 
