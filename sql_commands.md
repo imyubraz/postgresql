@@ -652,6 +652,37 @@ FULL JOIN test.course AS c
 ON s.course_id = c.course_id
 ```
 
+- Performing Cross Join / Cross Outer Join between two tables (student & teacher)
+
+> Cross Join : Return Cartesian product of comluns in tables
+
+```
+SELECT *
+FROM test.student AS s CROSS JOIN test.teacher AS t
+```
+
+```
+SELECT s.student_name, t.teacher_name
+FROM test.student AS s CROSS JOIN test.teacher AS t
+```
+
+- Performing Cross Join / Cross Outer Join between three tables (student, teacher & course)
+
+> Cross Join : Return Cartesian product of comluns in tables
+
+```
+SELECT *
+FROM test.student AS s
+CROSS JOIN test.teacher AS t
+CROSS JOIN test.course AS c
+```
+
+```
+SELECT s.student_name, t.teacher_name, c.course_name
+FROM test.student AS s
+CROSS JOIN test.teacher AS t
+CROSS JOIN test.course AS c
+```
 
 
 
